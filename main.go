@@ -50,7 +50,9 @@ func main() {
 
 				_ = json.Unmarshal(responseData, &responseActivity)
 
-				op := tgbotapi.NewMessage(message.Chat.ID, responseActivity.Activity)
+				msgText := fmt.Sprintf("Activity : %v\nType : %v\nParticipants : %v\nLink : %v\nPrice : %v\nAccessiblity : %v", responseActivity.Activity, responseActivity.Type, responseActivity.Participants, responseActivity.Link, responseActivity.Price, responseActivity.Accessibility)
+
+				op := tgbotapi.NewMessage(message.Chat.ID, msgText)
 				bot.Send(op)
 			}
 
