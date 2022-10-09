@@ -42,8 +42,6 @@ func main() {
 
 				res, _ := client.Do(req)
 
-				defer res.Body.Close()
-
 				responseData, _ := ioutil.ReadAll(res.Body)
 
 				var responseActivity ResponseActivtiy
@@ -54,8 +52,16 @@ func main() {
 
 				op := tgbotapi.NewMessage(message.Chat.ID, msgText)
 				bot.Send(op)
-			}
 
+				res.Body.Close()
+
+			case "/document":
+				msg := "activity - Description of the queried activity\naccessibility - A factor describing how possible an event is to do with zero being the most accessible [0.0, 1.0]\ntype - Type of the activity [\"education\", \"recreational\", \"social\", \"diy\", \"charity\", \"cooking\", \"relaxation\", \"music\", \"busywork\"]\nparticipants - The number of people that this activity could involve [0, n]\nprice - A factor describing the cost of the event with zero being free [0, 1]"
+
+				op := tgbotapi.NewMessage(message.Chat.ID, msg)
+				bot.Send(op)
+
+			}
 		}
 	}
 }
